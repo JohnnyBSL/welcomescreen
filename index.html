@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Video</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #000;
+            overflow: hidden;
+            height: 100vh;
+            font-family: Arial;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #welcome-video {
+            width: 100vw; height: 100vh;
+            object-fit: cover;
+            position: fixed; top: 0; left: 0; z-index: 1;
+        }
+        .skip-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); z-index: 2;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            color: white; text-align: center;
+        }
+        .skip-btn {
+            background: #00ff88; color: black; padding: 20px 40px;
+            font-size: 2em; border: none; border-radius: 15px;
+            cursor: pointer; margin-top: 30px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        h1 { font-size: 3em; text-shadow: 0 0 20px #00ff88; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <video id="welcome-video" autoplay loop playsinline>
+        <source src="welcome.webm" type="video/webm">
+        <source src="welcome.mp4" type="video/mp4">
+    </video>
+    
+    <div class="skip-overlay" id="skip-overlay">
+        <h1>Willkommen auf dem Server!</h1>
+        <p style="font-size: 1.5em; max-width: 600px;">
+            Drücke <strong>LEERTASTE</strong> oder klicke um zu spielen!
+        </p>
+        <button class="skip-btn" onclick="skipVideo()">LEERTASTE zum Skippen</button>
+    </div>
+
+    <script>
+        function skipVideo() {
+            document.getElementById('skip-overlay').style.display = 'none';
+        }
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.code === 'Space') {
+                skipVideo();
+                e.preventDefault();
+            }
+        });
+        document.addEventListener('click', skipVideo);
+    </script>
+</body>
+</html>
